@@ -1,0 +1,29 @@
+{
+  "name": "@yishentong/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run build && node bootstrap.js",
+    "build": "tsc -p tsconfig.json",
+    "start": "node bootstrap.js",
+    "test": "vitest run",
+    "init:database": "node scripts/init-database.mjs",
+    "verify:database": "node scripts/verify-database.mjs"
+  },
+  "dependencies": {
+    "@midwayjs/bootstrap": "^4.0.0",
+    "@midwayjs/core": "^4.0.0",
+    "@midwayjs/koa": "^4.0.0",
+    "@midwayjs/logger": "^4.0.1",
+    "nanoid": "^5.1.5",
+    "pg": "^8.16.3",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/koa__cors": "^5.0.0",
+    "@types/node": "^24.10.1",
+    "@types/pg": "^8.15.6",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.14"
+  }
+}
