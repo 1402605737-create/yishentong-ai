@@ -1,6 +1,8 @@
 # 医审通 AI
 
 中文医疗事前审核与补件助手，面向医保事前审核、商保预授权、互联网医院预审和医疗信息化场景。
+<img width="1589" height="2363" alt="image" src="https://github.com/user-attachments/assets/d5bb7632-6587-46e9-9dfd-9ff1d3534a20" />
+
 
 [GitHub 仓库](https://github.com/1402605737-create/yishentong-ai) ·
 [线上 Demo](https://yishentong-ai-web.vercel.app) ·
