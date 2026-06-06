@@ -80,7 +80,7 @@ npm --workspace apps/api run init:database
 npm --workspace apps/api run verify:database
 ```
 
-## 作品集讲法
+## 总结
 
 > 我做的是一个中文医疗事前审核工作台。它用 DeepSeek V4 Flash 做低成本文档理解，用中文政策检索和规则引擎兜底确定性校验，并用 eval harness 持续测试模型在缺件识别、政策引用、误判放行上的表现。
 
