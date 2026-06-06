@@ -25,7 +25,11 @@ interface DevStore {
 }
 
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
-const normalizeDatabaseUrl = (value: string) => value.replace(/^postgresql\+psycopg:\/\//, 'postgresql://');
+const normalizeDatabaseUrl = (value: string) => {
+  const url = new URL(value.replace(/^postgresql\+psycopg:\/\//, 'postgresql://'));
+  url.searchParams.delete('sslmode');
+  return url.toString();
+};
 
 @Provide('repositoryService')
 export class RepositoryService {

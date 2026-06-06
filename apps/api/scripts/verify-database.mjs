@@ -5,7 +5,9 @@ if (!rawUrl) {
   throw new Error('缺少 DATABASE_URL 环境变量');
 }
 
-const connectionString = rawUrl.replace(/^postgresql\+psycopg:\/\//, 'postgresql://');
+const parsedUrl = new URL(rawUrl.replace(/^postgresql\+psycopg:\/\//, 'postgresql://'));
+parsedUrl.searchParams.delete('sslmode');
+const connectionString = parsedUrl.toString();
 const pool = new pg.Pool({
   connectionString,
   max: 1,
