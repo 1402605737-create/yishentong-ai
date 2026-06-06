@@ -1,7 +1,7 @@
 import { Inject, Provide } from '@midwayjs/core';
-import { nanoid } from 'nanoid';
 import { runDeterministicRules } from '../domain/rule-engine';
 import { EvalRun, EvalStatus, PromptComparisonRun, PromptVersion } from '../interface';
+import { createId } from '../util/id';
 import { PolicyService } from './policy.service';
 import { RepositoryService } from './repository.service';
 
@@ -69,7 +69,7 @@ export class EvalHarnessService {
     const passed = items.filter((item) => item.status === '通过').length;
     const falseReadyFailures = items.filter((item) => item.name.includes('不能建议提交') && item.status !== '通过').length;
     const run: EvalRun = {
-      id: nanoid(),
+      id: createId(),
       model: process.env.DEEPSEEK_MODEL ?? 'deepseek-v4-flash / local-harness',
       createdAt: new Date().toLocaleString('zh-CN', { hour12: false }),
       total: items.length,
@@ -95,7 +95,7 @@ export class EvalHarnessService {
     const winner = [...items].sort((left, right) => right.safetyScore - left.safetyScore)[0];
 
     return {
-      id: nanoid(),
+      id: createId(),
       createdAt: new Date().toLocaleString('zh-CN', { hour12: false }),
       baselineModel: process.env.DEEPSEEK_MODEL ?? 'deepseek-v4-flash',
       winnerPromptId: winner?.promptId ?? '',

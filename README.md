@@ -2,6 +2,11 @@
 
 中文医疗事前审核与补件助手，面向医保事前审核、商保预授权、互联网医院预审和医疗信息化场景。
 
+[GitHub 仓库](https://github.com/1402605737-create/yishentong-ai) ·
+[线上 Demo](https://yishentong-ai-web.vercel.app) ·
+[后端健康检查](https://yishentong-ai-api.vercel.app/health) ·
+演示视频待补充
+
 这个项目不是医疗诊断系统，也不自动批准或拒绝医疗服务。它把中文病历摘要、检查申请、政策条款和材料清单转化为可审计的预审建议，并用 harness engineering 持续评测模型是否漏判缺件、乱引用政策或误判可提交。
 
 ## 项目能力

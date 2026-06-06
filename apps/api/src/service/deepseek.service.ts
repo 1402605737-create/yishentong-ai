@@ -1,8 +1,8 @@
 import { Inject, Provide } from '@midwayjs/core';
-import { nanoid } from 'nanoid';
 import { z } from 'zod';
 import { buildLocalReview } from '../domain/rule-engine';
 import { AiReviewResult, PolicyClause, PriorAuthCase, RuleCheck } from '../interface';
+import { createId } from '../util/id';
 import { RepositoryService } from './repository.service';
 
 const DeepSeekReviewSchema = z.object({
@@ -160,7 +160,7 @@ export class DeepSeekService {
 
   private recordCall(log: Omit<Parameters<RepositoryService['saveModelCall']>[0], 'id' | 'createdAt'>) {
     this.repositoryService?.saveModelCall({
-      id: nanoid(),
+      id: createId(),
       createdAt: new Date().toLocaleString('zh-CN', { hour12: false }),
       ...log,
     });

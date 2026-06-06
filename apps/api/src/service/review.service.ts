@@ -1,7 +1,7 @@
 import { Inject, Provide } from '@midwayjs/core';
-import { nanoid } from 'nanoid';
 import { runDeterministicRules } from '../domain/rule-engine';
 import { AgentStep, AiReviewResult, BatchReviewRun, TraceEvent } from '../interface';
+import { createId } from '../util/id';
 import { DeepSeekService } from './deepseek.service';
 import { PolicyService } from './policy.service';
 import { RepositoryService } from './repository.service';
@@ -28,7 +28,7 @@ export class ReviewService {
     const agentSteps: AgentStep[] = [];
 
     const pushStep = (step: Omit<AgentStep, 'id'>) => {
-      agentSteps.push({ id: nanoid(), ...step });
+      agentSteps.push({ id: createId(), ...step });
     };
 
     pushStep({
@@ -51,7 +51,7 @@ export class ReviewService {
       latencyMs: Date.now() - retrievalStarted,
     });
     trace.push({
-      id: nanoid(),
+      id: createId(),
       stage: '中文政策检索',
       actor: '政策检索',
       summary: `命中 ${clauses.length} 条医保/商保政策条款。`,
@@ -69,7 +69,7 @@ export class ReviewService {
       latencyMs: Date.now() - ruleStarted,
     });
     trace.push({
-      id: nanoid(),
+      id: createId(),
       stage: '确定性规则审核',
       actor: '规则引擎',
       summary: `完成 ${ruleResult.checks.length} 项材料完整性与风险规则检查。`,
@@ -90,7 +90,7 @@ export class ReviewService {
       latencyMs: Date.now() - modelStarted,
     });
     trace.push({
-      id: nanoid(),
+      id: createId(),
       stage: '模型生成审核说明',
       actor: useModel && process.env.DEEPSEEK_API_KEY ? 'DeepSeek' : '审核Agent',
       summary: useModel && process.env.DEEPSEEK_API_KEY
@@ -110,7 +110,7 @@ export class ReviewService {
     });
 
     trace.push({
-      id: nanoid(),
+      id: createId(),
       stage: 'Harness 安全闸门',
       actor: 'Harness',
       summary: reviewDraft.status === '建议提交'
@@ -121,7 +121,7 @@ export class ReviewService {
 
     const review: AiReviewResult = {
       ...reviewDraft,
-      id: nanoid(),
+      id: createId(),
       caseId,
       createdAt: new Date().toLocaleString('zh-CN', { hour12: false }),
       trace,
@@ -162,7 +162,7 @@ export class ReviewService {
     }
 
     return {
-      id: nanoid(),
+      id: createId(),
       createdAt: new Date().toLocaleString('zh-CN', { hour12: false }),
       requested: limit,
       reviewed: results.length,
