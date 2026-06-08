@@ -50,7 +50,9 @@ export class RepositoryService {
         connectionTimeoutMillis: 10_000,
         ssl: { rejectUnauthorized: false },
       });
-      await this.ensurePostgresSchema();
+      if (!process.env.VERCEL || process.env.DATABASE_BOOTSTRAP_SCHEMA === 'true') {
+        await this.ensurePostgresSchema();
+      }
       this.store = await this.loadPostgresStore();
       return;
     }
